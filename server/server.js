@@ -4,13 +4,13 @@ import os from "os";
 const userdata = [
     {
         id: 101,
-        Name: "Arvind",
-        Email: "karvind08@gmail.com"
+        name: "Arvind",
+        email: "karvind08@gmail.com"
     },
     {
         id: 102,
-        Name: "Yuvaan",
-        Email: "Yuvaan07@gmail.com"
+        name: "Yuvaan",
+        email: "Yuvaan07@gmail.com"
     }
 ];
 const server = http.createServer((req,res)=>{
@@ -44,6 +44,23 @@ const server = http.createServer((req,res)=>{
             FreeMemory:(os.freemem()/1024**3).toFixed(2)+"GB",
         }
         res.end(JSON.stringify(sysdata)); // It is used to get the output
+    }
+    else if(url=="/create" && method == "POST"){
+        let body ="";
+        req.on("data",(chunk)=>{
+            body+=chunk;
+        });
+        req.on("end",()=>{
+            const data = JSON.parse(body);
+            const newUser = {
+            id: data.id,
+            name: data.name,
+            email: data.email
+        }
+        userdata.push(newUser);
+        })        
+        res.statusCode = 201;
+        res.end("User Created Successfully!")
     }
     else{
         res.statusCode=404;
