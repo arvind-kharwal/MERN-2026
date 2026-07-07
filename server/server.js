@@ -62,6 +62,15 @@ const server = http.createServer((req,res)=>{
         res.statusCode = 201;
         res.end("User Created Successfully!")
     }
+    else if (url.startsWith("/delete/") && method == "DELETE"){
+        const id = url.split("/")[2];
+        const userIndex = userdata.findIndex((u)=>u.id==id);
+        if(userIndex==-1){
+            return res.end("User not found")
+        }
+        userdata.splice(userIndex,1);
+        res.end("User Deleted Sucessfully")
+    }
     else{
         res.statusCode=404;
         res.end("Error Page");
