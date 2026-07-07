@@ -71,6 +71,26 @@ const server = http.createServer((req,res)=>{
         userdata.splice(userIndex,1);
         res.end("User Deleted Sucessfully")
     }
+    else if(url.startsWith("/edit/") && method == "PUT"){
+            const id = url.split("/")[2];
+            const userIndex = userdata.findIndex((u)=>u.id == id);
+            if(userIndex==-1){
+                return res.end("User not found")
+            }
+            let body = "";
+            req.on("data",(chunk)=>{
+                body+=chunk;
+            })
+            req.on("end",()=>{
+                const newdata = JSON.parse(body);
+                userdata[userIndex] = {
+                    id,
+                    name: newdata.name,
+                    email:newdata.email
+                }
+            })
+            res.end("User Updated Sucessfully!")
+    }
     else{
         res.statusCode=404;
         res.end("Error Page");
