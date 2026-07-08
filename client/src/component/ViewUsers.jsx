@@ -19,7 +19,6 @@ const ViewUsers = () => {
   }
 };
 
-
   return (
     <div>
       <center>
