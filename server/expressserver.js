@@ -1,5 +1,6 @@
 import express from "express"
 import dotenv from "dotenv"
+import cors from 'cors';
 dotenv.config();
 const port = process.env.PORT || 3002;
 const app = express();
@@ -15,6 +16,9 @@ const userdata = [{
     email:"Yuvaan07@gmail.com"
 }]
 
+app.use(cors());
+app.use(express.json()); // Middleware
+
 
 app.get("/",(req,res)=>{
     res.status(200).json({
@@ -22,7 +26,7 @@ app.get("/",(req,res)=>{
     })
 })
 
-app.use(express.json());
+
 // To get the list of users
 app.get("/users",(req,res)=>{
     try{
