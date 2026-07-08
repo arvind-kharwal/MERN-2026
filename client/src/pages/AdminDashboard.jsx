@@ -1,8 +1,8 @@
 import React from 'react'
 
-function AdminDashboard() {
+const AdminDashboard = () => {
     return (
-        <div>AdminD ashboard</div>
+        <div>AdminDashboard</div>
     )
 }
 
