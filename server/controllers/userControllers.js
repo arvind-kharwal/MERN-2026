@@ -9,7 +9,9 @@ export const createUser= async(req,res)=>{
             id:Date.now(),
             name,email
         }
-        await User.bulksave(newUser);
+        const user = new User(newUser);
+        await user.save();
+        res.status(201).json({message:"user created",user})
     }
     catch(err){
         console.log("Error:",err);
