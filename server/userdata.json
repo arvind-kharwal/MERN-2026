@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Arvind Kumar 1",
+    "name": "Arvind Kumar",
     "email": "karvind08@gmail.com"
   },
   {
@@ -23,5 +23,15 @@
     "id": 40,
     "name": "Rajji",
     "email": "Rajji@gmail.com"
+  },
+  {
+    "id": 41,
+    "name": "Jyoti Sharma",
+    "email": "jj@gmail.com"
+  },
+  {
+    "id": 42,
+    "name": "Sarita Yadav",
+    "email": "sarita@gmail.com"
   }
 ]

@@ -6,6 +6,7 @@ const ViewUsers = () => {
   const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
   const [formData, setFormData] = useState({ name: "", email: "" });
+  const [newUser, setNewUser] = useState({ name: "", email: "" });
 
   useEffect(() => {
     loadUser();
@@ -20,6 +21,7 @@ const ViewUsers = () => {
     }
   };
 
+  // Handle Edit
   const handleEdit = (user) => {
     setEditingUser(user.id);
     setFormData({ name: user.name, email: user.email });
@@ -40,19 +42,58 @@ const ViewUsers = () => {
     }
   };
 
-  // 🔴 Delete user
+  // Delete user
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:3002/user/${id}`);
-      loadUser(); // reload after deletion
+      loadUser();
     } catch (err) {
       console.error("Error deleting user", err);
+    }
+  };
+
+  // Add new user
+  const handleNewChange = (e) => {
+    setNewUser({ ...newUser, [e.target.name]: e.target.value });
+  };
+
+  const handleAdd = async () => {
+    try {
+      await axios.post("http://localhost:3002/create", newUser);
+      setNewUser({ name: "", email: "" }); // reset form
+      loadUser(); // reload list
+    } catch (err) {
+      console.error("Error adding user", err);
     }
   };
 
   return (
     <div className="container">
       <center><h1>List of Users</h1></center>
+
+      {/* Add User Form */}
+      <div className="mb-3">
+        <h4>Add New User</h4>
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter name"
+          value={newUser.name}
+          onChange={handleNewChange}
+          className="form-control mb-2"
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter email"
+          value={newUser.email}
+          onChange={handleNewChange}
+          className="form-control mb-2"
+        />
+        <button className="btn btn-primary" onClick={handleAdd}>Add User</button>
+      </div>
+
+      {/* User Table */}
       <table className="table table-bordered">
         <thead className="thead-dark">
           <tr>
