@@ -8,7 +8,7 @@ const [password,setPassword] = useState();
 async function sendData(){
   // alert(name+email+password)
   const serverres = await fetch('http://localhost:3003/register',{
-    method: POST,
+    method: 'POST',
     body: JSON.stringify({name,email,password}),
     headers:{'Content-Type':'application/json'}
   });

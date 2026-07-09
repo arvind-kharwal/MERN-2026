@@ -1,10 +1,12 @@
-const express = require('express');
-const cors = require('cors');
+import express from "express";
+import { connectDB } from './database/db.js';
+import cors from "cors";
+import user from './model/user.js'
 const app = express();
 const port = 3003;
 app.use(cors());
 app.use(express.json());
-
+connectDB();
 // testing whether server is running or not
 app.get("/",(req,res)=>{
     res.setHeader('Content-Type','text/html');
@@ -22,8 +24,10 @@ app.post("/register",(req,res)=>{
         res.setHeader('Content-Type','application/json');
         const {name,email,password} = req.body;
         console.log(name+email+password);
-        res.send({"msg":name});
-        res.send("msg",'successfulle registered!')
+        //res.send({"msg":name});
+        const newuser=new user({name,email,password});
+        newuser.save();
+        res.send(msg,'successfulle registered!')
     }
     catch(e){
         res.send({msg:e});
