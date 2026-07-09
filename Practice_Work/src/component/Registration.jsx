@@ -5,6 +5,9 @@ const [name,setName] = useState();
 const [email,setEmail] = useState();
 const [password,setPassword] = useState();
 
+function sendData(){
+  alert(name+email+password)
+}
 
 return (
 <div>   
@@ -28,23 +31,16 @@ return (
     </div>
     {email}
     <div className="form-group mb-3">
-        <label htmlFor="exampleInputPassword1">Password</label>
+        <label>Password</label>
         <input 
                 type="password" 
+                onChange={(e)=>setPassword(e.target.value)}
                 className="form-control" 
                 id="exampleInputPassword1" 
         />
     </div>
 
-    <div className="form-check mb-3">
-        <input 
-                type="checkbox" 
-                className="form-check-input" 
-                id="exampleCheck1" 
-        />
-            </div>
-
-            <button type="submit" className="btn btn-primary w-100">
+              <button type="submit" onClick={sendData} className="btn btn-primary w-100">
               Register
             </button>
           </form>
