@@ -18,10 +18,17 @@ app.get("/",(req,res)=>{
 
 
 app.post("/register",(req,res)=>{
-    res.setHeader('Content-Type','application/json');
-    const {name,email,password} = req.body;
-    console.log(name+email+password);
-    res.send({"msg":name});
+    try{
+        res.setHeader('Content-Type','application/json');
+        const {name,email,password} = req.body;
+        console.log(name+email+password);
+        res.send({"msg":name});
+        res.send("msg",'successfulle registered!')
+    }
+    catch(e){
+        res.send({msg:e});
+    }
+    
 })
 
 

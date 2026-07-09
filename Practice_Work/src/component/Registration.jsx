@@ -5,8 +5,16 @@ const [name,setName] = useState();
 const [email,setEmail] = useState();
 const [password,setPassword] = useState();
 
-function sendData(){
-  alert(name+email+password)
+async function sendData(){
+  // alert(name+email+password)
+  const serverres = await fetch('http://localhost:3003/register',{
+    method: POST,
+    body: JSON.stringify({name,email,password}),
+    headers:{'Content-Type':'application/json'}
+  });
+  const res = await serverres.json();
+  console.log(res);
+  alert(res.msg);
 }
 
 return (
