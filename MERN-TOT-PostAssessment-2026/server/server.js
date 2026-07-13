@@ -1,6 +1,6 @@
-const express = require('express');
-const axios = require('axios');
-const cors = require('cors');
+import express from 'express';
+import axios from 'axios';
+import cors from 'cors';
 
 const app = express();
 app.use(cors());
@@ -10,8 +10,8 @@ let cart = [];
 
 // Get all products
 app.get('/products', async (req, res) => {
-const { data } = await axios.get('https://dummyjson.com/products');
-res.json(data.products);
+    const { data } = await axios.get('https://dummyjson.com/products');
+    res.json(data.products);
 });
 
 // Get product by id
@@ -31,7 +31,12 @@ app.get('/products/search', async (req, res) => {
 // Add item to cart
 app.post('/cart', (req, res) => {
     const item = req.body;
-    cart.push(item);
+    const existing = cart.find(p => p.id === item.id);
+    if (existing) {
+    existing.quantity += item.quantity;
+    } else {
+        cart.push(item);
+    }
     res.json(cart);
 });
 
